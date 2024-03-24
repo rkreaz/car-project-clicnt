@@ -1,0 +1,18 @@
+.footer_bg{
+    background-image: url(../../assets/Image/carbon_BG-20.png);
+}
+.footer_col{
+    background-color: #1F1F20;
+}
+.footer_color{
+    background-color:  rgba(0, 0, 0, 0.435);
+}
+.text_color a {
+    color: white;
+}
+.text_color h6{
+    color: white;
+}
+.text_color p{
+    color: white;
+}

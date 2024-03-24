@@ -1,0 +1,19 @@
+.navMenu{
+    color: #444444;
+    padding: 4px 8px;
+    border-radius: 8px;
+    margin-left: 20px;
+    font-weight: 700;
+}
+.navMenu:hover{
+    color: white;
+    background-color: #FF3811;
+
+}
+
+.navMenu.active {
+    color: white;
+    background-color: #ac2004;
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
