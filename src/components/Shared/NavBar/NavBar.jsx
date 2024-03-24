@@ -1,10 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from '../../../assets/icons/logo.svg';
 import { CiSearch } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import './NavBar.css'
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProviders";
 
 const NavBar = () => {
+    const { user, logOut } = useContext(AuthContext)
     const Links = <>
         <NavLink className={"navMenu"} to='/'>Home</NavLink>
         {/* <NavLink to='/products'>Products</NavLink> */}
@@ -14,6 +17,16 @@ const NavBar = () => {
         {/* <NavLink className={"navMenu"} to='/users'>Users</NavLink> */}
         {/* <NavLink className={"navMenu"} to='/updateProduct'>Update Product</NavLink> */}
     </>
+
+     const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                console.log('Log Out Success Full');
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
     return (
         <div>
             <div className="navbar mt-12">
@@ -42,7 +55,10 @@ const NavBar = () => {
                
                     <HiOutlineShoppingBag className="text-2xl" />
                     <CiSearch className="text-2xl" />
-                    <button className="btn btn-outline text-[#FF3811]  hover:bg-[#FF3811]">Appointment</button>
+
+                    {
+                        user?.email ? <button onClick={handleLogOut} className="btn btn-outline text-[#FF3811]  hover:bg-[#FF3811]">Log Out</button> : <Link to={'/login'}><button className="btn btn-outline text-[#FF3811]  hover:bg-[#FF3811]">Appointment</button></Link>
+                    }
                  
                 </div>
             </div>
