@@ -1,4 +1,4 @@
-import NavBar from "../components/Shared/NavBar/NavBar";
+
 import wash from '../../src/assets/images/login/login.svg'
 import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -28,7 +28,6 @@ const Register = () => {
     }
     return (
         <div>
-            <NavBar></NavBar>
             <div className="hero min-h-screen">
                 <div className="hero-content flex-col lg:flex-row gap-16">
 

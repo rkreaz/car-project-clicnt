@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { FaArrowRight } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 const Service = ({ service }) => {
-    const { img, title, price } = service;
+    const { _id, img, title, price } = service;
     return (
         <div>
             <div className="card w-96 border">
@@ -12,7 +13,9 @@ const Service = ({ service }) => {
                     <h2 className="card-title font-bold">{title}</h2>
                     <div className="flex items-center justify-center">
                         <p className='text-[#FF3811]'>Price: ${price}</p>
-                        <span> <FaArrowRight className='text-[#FF3811]' /></span>
+                        <Link to={`/checkout/${_id}`}>
+                            <span> <FaArrowRight className='text-[#FF3811]' /></span>
+                        </Link>
                     </div>
                 </div>
             </div>
