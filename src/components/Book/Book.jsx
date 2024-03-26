@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { MdDelete, MdEdit } from "react-icons/md";
 
-const Book = ({ books }) => {
-    const { img, service, price, phone, email, displayName, date } = books;
-    console.log(books);
+const Book = ({ books, handleBookingDelete, handleBookingConform }) => {
+    const { _id, img, service, price, phone, email, displayName, date, status } = books;
     return (
 
         <tbody>
@@ -30,18 +29,17 @@ const Book = ({ books }) => {
                 <th className='text-center'>
                     {/* <p className=' cursor-pointer p-5'> {<MdEdit className='text-[#19A067] text-xl bg-[#F60002] rounded-lg' />}</p> */}
 
-                    <p className=' cursor-pointer text-[#000000c0] text-base hover:bg-[#19A067] rounded-lg'>Update</p>
+                    { status === 'conform' ? <p  className=' cursor-pointer text-[#0509cac0] text-base'>Conformed</p> :
+                        <p onClick={() => handleBookingConform(_id)} className=' cursor-pointer text-[#000000c0] text-base hover:bg-[#19A067] rounded-lg'>Please Conformed</p>
+                    }
 
                 </th>
                 <th className='text-center'>
-                    <p className=' cursor-pointer text-[#19A067] hover:text-[#fff] text-lg hover:bg-[#F60002] rounded-lg py-1'>Delete</p>
+                    <p onClick={() => handleBookingDelete(_id)} className=' cursor-pointer text-[#19A067] hover:text-[#fff] text-lg hover:bg-[#F60002] rounded-lg py-1'>Delete</p>
                 </th>
             </tr>
 
         </tbody>
-
-
-
     );
 };
 Book.propTypes = {

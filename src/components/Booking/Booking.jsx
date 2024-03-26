@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
-// import NavBar from "../Shared/NavBar/NavBar";
 import CheckOutImg from '../../../src/assets/images/checkout/checkout.png'
 import Book from "../Book/Book";
+import Swal from "sweetalert2";
 
 const Booking = () => {
     const { user } = useContext(AuthContext);
     const [booking, setBooking] = useState([]);
-  
+
     const url = `http://localhost:5000/booking?email=${user.email}`
     useEffect(() => {
         fetch(url)
@@ -16,6 +16,62 @@ const Booking = () => {
                 setBooking(result);
             })
     }, [url])
+
+    const handleBookingDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                fetch(`http://localhost:5000/booking/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(result => {
+                        console.log(result);
+                        if (result.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+
+                            const remaining = booking.filter(book => book._id !== id)
+                            setBooking(remaining)
+
+                        }
+                    })
+            }
+        });
+    }
+
+    const handleBookingConform = (id) => {
+        console.log('handle Booking Conform', id);
+        fetch(`http://localhost:5000/booking/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify({ status: 'conform' })
+        })
+            .then(res => res.json())
+            .then(result => {
+                console.log(result);
+                if (result.modifiedCount > 0) {
+                    const remaining = booking.filter(book => book._id !== id);
+                    const updated = booking.find(book => book._id === id);
+                    updated.status = 'conform';
+                    const newBooking = [updated, ...remaining];
+                    setBooking(newBooking);
+                }
+            })
+    }
 
     return (
         <div>
@@ -38,13 +94,19 @@ const Booking = () => {
                             <th className="text-xl font-bold text-[#000]">Name</th>
                             <th className="text-xl font-bold text-[#000]">Phone</th>
                             <th className="text-xl font-bold text-[#000]">Price</th>
-                            <th className="text-xl font-bold text-[#000]">Details</th>
+                            <th className="text-xl font-bold text-[#000]">Update</th>
                             <th className="text-xl font-bold text-[#000]">Delete</th>
-                          
+
                         </tr>
                     </thead>
                     {
-                        booking.map(books => <Book key={books._id} books={books}></Book>)
+                        booking.map(books =>
+                            <Book
+                                key={books._id}
+                                books={books}
+                                handleBookingDelete={handleBookingDelete}
+                                handleBookingConform={handleBookingConform}
+                            ></Book>)
                     }
                 </table>
             </div>

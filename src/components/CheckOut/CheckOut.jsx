@@ -1,5 +1,4 @@
 import { useLoaderData } from "react-router-dom";
-import NavBar from "../Shared/NavBar/NavBar";
 import CheckOutImg from '../../../src/assets/images/checkout/checkout.png'
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
@@ -8,7 +7,7 @@ import Swal from "sweetalert2";
 const CheckOut = () => {
     const { user } = useContext(AuthContext);
     const services = useLoaderData();
-    const {_id,img, title, price } = services;
+    const { _id, img, title, price } = services;
 
     const handleUpdateProduct = event => {
         event.preventDefault();
@@ -29,30 +28,43 @@ const CheckOut = () => {
             price,
             phone
         }
-      fetch('http://localhost:5000/booking', {
-        method: "POST",
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(booking)
-      })
-      .then(res => res.json())
-      .then(result => {
-        if (result.insertedId) {
-            Swal.fire({
-              title: "Success!",
-              text: "Order Confirm SuccessFully",
-              icon: "success"
-            });
-          }
-      })
 
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Order Confirm!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                fetch('http://localhost:5000/booking', {
+                    method: "POST",
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(booking)
+                })
+                    .then(res => res.json())
+                    .then(result => {
+                        console.log(result);
+                        if (result.insertedId) {
+                            Swal.fire({
+                                title: "Success!",
+                                text: "Order Confirm SuccessFully",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
     }
 
     return (
         <div>
             <div>
-                <NavBar></NavBar>
                 <div className="hero place-items-start items-center h-[300px] mt-20" style={{ backgroundImage: `url(${CheckOutImg})` }}>
                     <div className="hero-overlay bg-opacity-60"></div>
                     <div className="hero-content text-center text-neutral-content">
