@@ -89,13 +89,13 @@ const Booking = () => {
             <div className="overflow-x-auto mt-20">
                 <table className="table">
                     <thead>
-                        <tr>
-                            <th className="text-xl font-bold text-[#000]">Image</th>
-                            <th className="text-xl font-bold text-[#000]">Name</th>
-                            <th className="text-xl font-bold text-[#000]">Phone</th>
-                            <th className="text-xl font-bold text-[#000]">Price</th>
-                            <th className="text-xl font-bold text-[#000]">Update</th>
-                            <th className="text-xl font-bold text-[#000]">Delete</th>
+                        <tr className="bg-[#FF3811]">
+                            <th className="text-xl font-bold text-[#fff]">Image</th>
+                            <th className="text-xl font-bold text-[#fff]">Name</th>
+                            <th className="text-xl font-bold text-[#fff]">Phone</th>
+                            <th className="text-xl font-bold text-[#fff]">Price</th>
+                            <th className="text-xl font-bold text-[#fff]">Update</th>
+                            <th className="text-xl font-bold text-[#fff]">Delete</th>
 
                         </tr>
                     </thead>

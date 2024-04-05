@@ -9,7 +9,7 @@ const Book = ({ books, handleBookingDelete, handleBookingConform }) => {
             {/* row 1 */}
             <tr>
                 <td>
-                    <div className='flex items-center'>
+                    <div className='flex items-center mt-5'>
                         <img className='w-16 h-16 rounded-full' src={img} alt="" />
                         <div className='ml-5'>
                             <p className='text-[#1b1a1a] font-bold'>Title: <span className='text-[#4d4848] font-normal'>{service}</span> </p>

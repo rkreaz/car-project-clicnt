@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from '../../../assets/icons/logo.svg';
+import logoMan from '../../../assets/icons/man.jpeg';
 import { CiSearch } from "react-icons/ci";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import './NavBar.css'
@@ -19,9 +20,7 @@ const NavBar = () => {
 
     const Links = <>
         <NavLink className={"navMenu"} to='/'>Home</NavLink>
-
         <NavLink className={"navMenu"} to='/register'>Register</NavLink>
-
     </>
 
 
@@ -56,15 +55,15 @@ const NavBar = () => {
                         <div className="dropdown">
                             <div tabIndex={0} role="button">
                                 <div>
-                                    <img width={40} className="rounded-full" src={user.photoURL} />
+                                    <img width={40} className="rounded-full" src={user?.photoURL ? user.photoURL : `${logoMan}`}/>
                                 </div>
                             </div>
                             <div tabIndex={0} className="dropdown-content z-[1] card card-compact w-64 shadow bg-[#ddc9c5] text-primary-content  mt-2">
                                 <div className="card-body text-center">
-                                    <img className="w-16 h-16 rounded-full mx-auto" src={user?.photoURL} />
+                                    <img className="w-16 h-16 rounded-full mx-auto" src={user?.photoURL ? user?.photoURL : `${logoMan}`} />
                                     <h3 className="text-[#fff] text-xl font-semibold">{user.displayName}</h3>
                                     <p className="text-[#fff] text-base font-semibold">{user.email}</p>
-                                    <h2 onClick={handleLogOut} className="bg-[#FF3811] text-[#fff] hover:bg-[#c94646] text-lg font-semibold rounded-lg py-1 ">Log Out</h2>
+                                    <h2 onClick={handleLogOut} className="bg-[#FF3811] text-[#fff] hover:bg-[#c94646] text-lg font-semibold rounded-lg py-1 cursor-pointer">Log Out</h2>
                                 </div>
                             </div>
                         </div>
